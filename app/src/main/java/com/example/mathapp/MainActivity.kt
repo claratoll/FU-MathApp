@@ -47,9 +47,9 @@ class MainActivity : AppCompatActivity() {
         val correctAnswer = firstNumber + secondNumber
 
         if(answerInt == correctAnswer){
-            Log.d("!!","rätt svar")
+            Log.d("!!!","rätt svar")
         } else{
-            Log.d("..", "fel svar")
+            Log.d("!!!", "fel svar")
         }
 
     }
