@@ -1,5 +1,6 @@
 package com.example.mathapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +17,6 @@ class MainActivity : AppCompatActivity() {
     var secondNumber = 0
     var answerNumber = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -26,31 +26,33 @@ class MainActivity : AppCompatActivity() {
 
         val button = findViewById<Button>(R.id.button)
         button.setOnClickListener{
-            checkAnswer()
+            checkAnswerAndStartAnswerActivity()
         }
 
         setNewQuestion()
-
     }
-
 
     fun setNewQuestion () {
         firstNumber = (1 .. 10).random()
         secondNumber = (1 .. 10).random()
 
-        questionTextView.text = "$firstNumber + $secondNumber"
+        questionTextView.text = "$firstNumber + $secondNumber ?"
     }
 
-    fun checkAnswer(){
+    fun checkAnswerAndStartAnswerActivity(){
         val answerText = answerView.text.toString()
-        val answerInt = answerText.toIntOrNull()
+        val answer = answerText.toIntOrNull()
         val correctAnswer = firstNumber + secondNumber
 
-        if(answerInt == correctAnswer){
-            Log.d("!!!","rätt svar")
-        } else{
-            Log.d("!!!", "fel svar")
+        var answeredCorrect = false
+
+        if (answer == correctAnswer) {
+            answeredCorrect = true
         }
 
+        val intent = Intent(this, AnswerActivity::class.java)
+        intent.putExtra("answeredCorrect", answeredCorrect)
+
+        startActivity(intent)
     }
 }
